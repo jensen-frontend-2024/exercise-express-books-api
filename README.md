@@ -8,10 +8,16 @@ Du har blivit anlitad av ett lokalt bibliotek för att digitalisera deras system
 
 Ditt uppdrag är att skapa ett RESTful API med hjälp av Node.js och Express.js som kan hantera böcker i biblioteket.
 
+Uppiften kommer i två delar.
+
+  - Del 1: All data sparas i en array med bok-objekt. Endpointsen utför CRUD-operationer på arrayen.
+  
+  - Del 2: All data ska sparas i en SQLite-databas. Endpointsen utför CRUD-operationer mot databasen.
+
 #### Uppgiftens mål
 
 - Skapa ett RESTful API som hanterar CRUD-operationer (Create, Read, Update, Delete) för böcker.
-- Använda Node.js och Express.js för att bygga API:et.
+- Använda Node.js, Express.js _( och SQLite )_ för att bygga API:et.
 - Testa dina endpoints med Postman.
 
 #### Funktionskrav (Kravspecifikation)
@@ -120,14 +126,25 @@ Ditt uppdrag är att skapa ett RESTful API med hjälp av Node.js och Express.js 
 
 #### Krav på API:et
 
-- Använd `express` för att skapa servern.
-- All data om böcker ska lagras i minnet som en array av objekt (dvs. ingen databas krävs för denna uppgift).
+- Använd följande tekniker:
+
+  - `express` för att skapa servern. _( del 1 & del 2)_
+  - `better-sqlite3` för att skapa en databaskoppling till en SQLite-databas. _( del 2 )_
+
+- All data om böcker ska lagras på något av följande sätt:
+
+  - I minnet i en array av bok-objekt. _( del 1 )_
+  - I en SQLite databas som innehåller tabell och kolumner för en bok. _( del 2 )_
+  - Endpointsen måste anpassas utifrån vilken lagringssätt som används.
+
 - Varje bok ska ha följande egenskaper:
+
   - `id` (nummer, genererat automatiskt)
   - `title` (sträng)
   - `author` (sträng)
   - `yearPublished` (nummer)
   - `genre` (sträng)
+
 - Validera inkommande data för POST och PUT endpoints. Alla fält ska vara obligatoriska (förutom `id` som genereras automatiskt).
 
 #### Utveckling och Testning
@@ -150,6 +167,10 @@ Ditt uppdrag är att skapa ett RESTful API med hjälp av Node.js och Express.js 
   Bryt ut alla author-namn till en egen array med author-objekt istället. En `Book` kommer ni refererar till ett author-id istället för ett namn på sitt author-attribut.
 
   Implementera endpointen ovan för att hämta en bok med ett specifikt id samt att du kopplar på motsvarande author-objekt istället för author-id. En pasande response skulle kunna se ut så här:
+
+  **Response**:  
+   Returnerar ett objekt som representerar en bok inklusive ett objekt som beskriver vilken author boken har.  
+  **Response Exempel**:
 
   ```json
   {
